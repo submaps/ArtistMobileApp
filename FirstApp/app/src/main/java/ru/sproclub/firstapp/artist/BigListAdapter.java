@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -43,7 +44,7 @@ public class BigListAdapter extends ArrayAdapter<Artist> {
         TextView txt2 = (TextView) rowView.findViewById(R.id.textView2);
         TextView txt3 = (TextView) rowView.findViewById(R.id.textView3);
         TextView txt4 = (TextView) rowView.findViewById(R.id.textView4);
-
+        //WebView web4=(WebView) rowView.findViewById(R.id.web4);
         Artist curArtist=artists_list[position];
 
         int curImg = context.getResources().getIdentifier("id"+curArtist.id , "drawable", context.getPackageName());
@@ -51,6 +52,7 @@ public class BigListAdapter extends ArrayAdapter<Artist> {
         txt1.setText(curArtist.getGenresAsString());
         txt2.setText(curArtist.getTracksAndAlbumsAsString());
         txt3.setText(R.string.artist_biography_title);
+        //web4.loadData(curArtist.getModifiedDescriptionAsHtml(), "text/html; charset=utf-8", "utf-8");
         txt4.setText(curArtist.getModifiedDescription());
         return rowView;
     };
