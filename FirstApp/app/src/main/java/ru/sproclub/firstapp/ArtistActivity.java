@@ -23,7 +23,7 @@ public class ArtistActivity extends ActionBarActivity {
         setContentView(R.layout.activity_artist);
         int position=getIntent().getIntExtra("curArtistPosition", 0);
         Artist[] list=new Artist[1];
-        list[0]=ArtistDao.list[position];
+        list[0]=ArtistDao.list.get(position);
         this.setTitle(list[0].name);
         BigListAdapter adapter=new BigListAdapter(this,list);
         listView=(ListView)findViewById(R.id.listView);

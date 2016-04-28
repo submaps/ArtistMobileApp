@@ -1,7 +1,6 @@
 package ru.sproclub.firstapp.artist;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import android.net.Uri;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,10 +18,12 @@ public class Artist {
     @Override
     public String toString() {
         String str;
-        if (link == null) try {
-            link = new URL("https://yandex.ru/search/?text=" + name.replace(" ", "_"));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+        if (link == null) {
+            try {
+                link =new URL("https://yandex.ru/search/?text=" + name.replace(" ", "_"));
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
         }
         String str_genres = getGenresAsString();
         str = name + "\n" + cover.big + "\n" + link + "\n" + str_genres + "\nБиография" + description;

@@ -13,8 +13,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import ru.sproclub.firstapp.artist.Artist;
 import ru.sproclub.firstapp.artist.CustomListAdapter;
@@ -25,11 +28,14 @@ public class MainActivity extends ActionBarActivity {
 
     private ListView listView;
     private EditText editText;
+    boolean isNetworkOnlineNow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         editText = (EditText)findViewById(R.id.editText);
+
         editText.setOnKeyListener(new View.OnKeyListener()
                                   {
                                       public boolean onKey(View v, int keyCode, KeyEvent event)
@@ -48,14 +54,25 @@ public class MainActivity extends ActionBarActivity {
 
         listView=(ListView)findViewById(R.id.listView);
 
-        LoadBigDataTmpFile loadBigDataTmpFile=new LoadBigDataTmpFile();
+        isNetworkOnlineNow = isNetworkOnline(this);
+        Toast toast = Toast.makeText(getApplicationContext(),
+                "Интернет статус: "+isNetworkOnlineNow, Toast.LENGTH_SHORT);
+        toast.show();
+
+        LoadBigDataTmpFile loadBigDataTmpFile = new LoadBigDataTmpFile();//загрузчик данных
         InputStream tmp_list_stream = getResources().openRawResource(R.raw.tmp_list);
-        final Artist[] list=loadBigDataTmpFile.parseJsonFileToObjects(tmp_list_stream);
+        //источник данных по умолчанию
+        if(isNetworkOnlineNow) {
+            tmp_list_stream = getResources().openRawResource(R.raw.artists);
+        }
 
-        ArtistDao.list=list;//для доступа из ArtistActivity
+        Artist[] list = loadBigDataTmpFile.parseJsonFileToObjects(tmp_list_stream);
+        ArtistDao.list = new ArrayList<Artist>(Arrays.asList(list));//для доступа из ArtistActivity
+        //CustomListAdapter adapter = new CustomListAdapter(this, list, isNetworkOnlineNow);
+        CustomListAdapter adapter = new CustomListAdapter(this, ArtistDao.list, isNetworkOnlineNow);
 
-        CustomListAdapter adapter=new CustomListAdapter(this,list);
         listView.setAdapter(adapter);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -65,8 +82,6 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(intent);
             }
         });
-
-        boolean isNetworkOnlineNow = isNetworkOnline(this);
 
     }
 
@@ -109,6 +124,7 @@ public class MainActivity extends ActionBarActivity {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+
         }
         return status;
     }
