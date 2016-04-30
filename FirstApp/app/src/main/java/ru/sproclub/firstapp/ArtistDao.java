@@ -9,5 +9,6 @@ import ru.sproclub.firstapp.artist.Artist;
  */
 public class ArtistDao {
 public static ArrayList<Artist> list;
+public static boolean isNetworkOnline;
 //public static Artist[] list;
 }

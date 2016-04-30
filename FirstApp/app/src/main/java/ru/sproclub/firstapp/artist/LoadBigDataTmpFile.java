@@ -3,6 +3,8 @@ package ru.sproclub.firstapp.artist;
 import com.google.gson.Gson;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import ru.sproclub.firstapp.artist.Artist;
@@ -90,5 +92,33 @@ public class LoadBigDataTmpFile {
         Gson gson = new Gson();
         list = gson.fromJson(reader, Artist[].class);
         return list;
+    }
+
+
+    static void saveImgH(long id, URL url){
+        String strPath="tmp/img/"+id+".jpg";
+        int buffSize=512;
+        try {
+            HttpURLConnection urlconn;
+            urlconn = (HttpURLConnection) url.openConnection();
+            urlconn.setRequestMethod("GET");
+            urlconn.connect();
+            InputStream in = null;
+            in = urlconn.getInputStream();
+
+            OutputStream writer = new FileOutputStream(strPath);
+            byte buffer[] = new byte[buffSize];
+            int c = in.read(buffer);
+            while (c > 0) {
+                writer.write(buffer, 0, c);
+                c = in.read(buffer);
+            }
+            writer.flush();
+            writer.close();
+            in.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
     }
 }

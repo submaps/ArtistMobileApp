@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ru.sproclub.firstapp.ArtistActivity;
+import ru.sproclub.firstapp.ArtistDao;
 import ru.sproclub.firstapp.R;
 
 import android.widget.ArrayAdapter;
@@ -23,16 +24,21 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import ru.sproclub.firstapp.R;
 
 public class BigListAdapter extends ArrayAdapter<Artist> {
     private final Artist[] artists_list;
     private final Activity context;
+    private boolean isNetworkOnlineNow;
 
     public BigListAdapter(Activity context, Artist[] artists_list) {
         super(context, R.layout.my_list_item_big, artists_list);
         this.context=context;
         this.artists_list=artists_list;
+        this.isNetworkOnlineNow= ArtistDao.isNetworkOnline;
     }
 
     public View getView(int position,View view,ViewGroup parent) {
@@ -47,8 +53,15 @@ public class BigListAdapter extends ArrayAdapter<Artist> {
         //WebView web4=(WebView) rowView.findViewById(R.id.web4);
         Artist curArtist=artists_list[position];
 
+
+        if (isNetworkOnlineNow){
+            ImageLoader.getInstance().displayImage(curArtist.cover.big, imageView);
+        }else{
         int curImg = context.getResources().getIdentifier("id"+curArtist.id , "drawable", context.getPackageName());
         imageView.setImageResource(curImg);
+            //если подключения к сети нет, загружаются закэшированные элементы
+        }
+
         txt1.setText(curArtist.getGenresAsString());
         txt2.setText(curArtist.getTracksAndAlbumsAsString());
         txt3.setText(R.string.artist_biography_title);
