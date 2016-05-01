@@ -25,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import ru.sproclub.firstapp.R;
@@ -55,13 +56,20 @@ public class BigListAdapter extends ArrayAdapter<Artist> {
 
 
         if (isNetworkOnlineNow){
-            ImageLoader.getInstance().displayImage(curArtist.cover.big, imageView);
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .showStubImage(R.drawable.stub_image)
+                    .showImageForEmptyUri(R.drawable.image_for_empty_url)
+                    .resetViewBeforeLoading()
+                    .cacheInMemory()
+                    .cacheOnDisc()
+//                    .decodingType(ImageScaleType.EXACTLY)
+                    .build();
+            ImageLoader.getInstance().displayImage(curArtist.cover.big, imageView,options);
         }else{
-        int curImg = context.getResources().getIdentifier("id"+curArtist.id , "drawable", context.getPackageName());
-        imageView.setImageResource(curImg);
+            int curImg = context.getResources().getIdentifier("id"+curArtist.id , "drawable", context.getPackageName());
+            imageView.setImageResource(curImg);
             //если подключения к сети нет, загружаются закэшированные элементы
         }
-
         txt1.setText(curArtist.getGenresAsString());
         txt2.setText(curArtist.getTracksAndAlbumsAsString());
         txt3.setText(R.string.artist_biography_title);

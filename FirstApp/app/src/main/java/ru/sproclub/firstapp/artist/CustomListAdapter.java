@@ -10,14 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.net.Uri.*;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
 import java.util.ArrayList;
 
 import ru.sproclub.firstapp.R;
 
 public class CustomListAdapter extends ArrayAdapter<Artist> {
-//    private final Artist[] artists_list;
     private ArrayList<Artist> artists_list;
     private final Activity context;
     private boolean isNetworkOnlineNow;
@@ -40,8 +41,15 @@ public class CustomListAdapter extends ArrayAdapter<Artist> {
         txtTitle.setText(curArtist.name);
         int curImg=0;
         if (isNetworkOnlineNow){
-                //imageView.setImageURI(android.net.Uri.parse(curArtist.cover.small));
-            ImageLoader.getInstance().displayImage(curArtist.cover.small, imageView);
+                //imageView.setImageURI(android.net.Uri.parse(curArtist.cover.small))// ;
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .showStubImage(R.drawable.stub_image)
+                    .showImageForEmptyUri(R.drawable.image_for_empty_url)
+                    .resetViewBeforeLoading()
+                    .cacheInMemory()
+                    .cacheOnDisc()
+                    .build();
+            ImageLoader.getInstance().displayImage(curArtist.cover.small, imageView,options);
         }else{
             curImg = context.getResources().getIdentifier("id"+curArtist.id , "drawable", context.getPackageName());
             imageView.setImageResource(curImg);
@@ -49,6 +57,5 @@ public class CustomListAdapter extends ArrayAdapter<Artist> {
         extratxt1.setText(curArtist.getGenresAsString());
         extratxt2.setText(curArtist.getTracksAndAlbumsAsString());
         return rowView;
-
     };
 }

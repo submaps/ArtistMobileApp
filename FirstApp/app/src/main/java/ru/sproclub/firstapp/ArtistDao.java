@@ -1,5 +1,9 @@
 package ru.sproclub.firstapp;
 
+import android.app.Activity;
+import android.app.Application;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 import ru.sproclub.firstapp.artist.Artist;
@@ -10,5 +14,16 @@ import ru.sproclub.firstapp.artist.Artist;
 public class ArtistDao {
 public static ArrayList<Artist> list;
 public static boolean isNetworkOnline;
-//public static Artist[] list;
+
+    public static void searchStr(String str){
+        ArrayList<Artist> newlist=new ArrayList();
+        for(Artist artist:list){
+            if (artist.name.equals(str.trim())||artist.getGenresAsString().contains(str.trim())){
+                newlist.add(artist);
+            }
+        }
+        list=newlist;
+    }
+
+
 }
