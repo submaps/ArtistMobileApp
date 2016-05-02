@@ -58,4 +58,8 @@ public class CustomListAdapter extends ArrayAdapter<Artist> {
         extratxt2.setText(curArtist.getTracksAndAlbumsAsString());
         return rowView;
     };
+
+    public ArrayList<Artist> getData(){
+        return artists_list;
+    }
 }

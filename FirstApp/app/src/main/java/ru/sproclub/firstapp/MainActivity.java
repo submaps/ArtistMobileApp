@@ -44,7 +44,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ArtistDao.curActivity=this;
         editText = (EditText)findViewById(R.id.editText);
 
         editText.setOnKeyListener(new View.OnKeyListener()
@@ -55,9 +55,19 @@ public class MainActivity extends ActionBarActivity {
                                                   (keyCode == KeyEvent.KEYCODE_ENTER))
                                           {
                                               // сохраняем текст, введенный до нажатия Enter в переменную
-                                              String strSearch = editText.getText().toString();
-                                              ArtistDao.searchStr(strSearch);
+                                              String strSearch = editText.getText().toString().trim();
+                                              //при вводе пустой строки отображается всё
+                                              if (strSearch.equals("")){
+                                                  adapter.getData().clear();
+                                                  adapter.getData().addAll(ArtistDao.listStore);
+                                              }else {
+                                                  ArtistDao.showShortToast("Идет поиск: "+strSearch);
+                                                  ArtistDao.searchArtist(strSearch);
+                                                  adapter.getData().clear();
+                                                  adapter.getData().addAll(ArtistDao.newlist);
+                                              }
                                               adapter.notifyDataSetChanged();
+                                              listView.invalidateViews();
                                               return true;
                                           }
                                           return false;
@@ -79,7 +89,9 @@ public class MainActivity extends ActionBarActivity {
         }
 
         Artist[] list = loadBigDataTmpFile.parseJsonFileToObjects(tmp_list_stream);
-        ArtistDao.list = new ArrayList<Artist>(Arrays.asList(list));//для доступа из ArtistActivity
+        //для доступа из ArtistActivity
+        ArtistDao.listStore = new ArrayList<Artist>(Arrays.asList(list));
+        ArtistDao.list = new ArrayList<Artist>(Arrays.asList(list));
         displayArtistListView(ArtistDao.list);
 
     }
