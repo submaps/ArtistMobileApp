@@ -2,9 +2,14 @@
 <resources>
 
     <string name="app_name">Исполнители</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Настройки</string>
     <string name="title_activity_artist">ArtistActivity</string>
     <string name="artist_biography_title">Биография</string>
     <string name="artist_search_hint">Введите имя или жанр</string>
+    <string name="search_process">Идет поиск: %1$s</string>
+    <string name="search_found">Найдено %1$d записей из %2$d</string>
+    <string name="link_button">Перейти на сайт</string>
+
+
+
 </resources>

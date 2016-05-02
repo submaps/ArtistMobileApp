@@ -11,7 +11,7 @@ public class Artist {
     String[] genres;
     int tracks;
     int albums;
-    URL link;
+    public URL link;
     String description;
     Cover cover;
 

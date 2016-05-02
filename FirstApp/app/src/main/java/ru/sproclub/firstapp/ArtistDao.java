@@ -18,9 +18,10 @@ public static ArrayList<Artist> newlist=new ArrayList<>();
 public static boolean isNetworkOnline;
 public static Activity curActivity;
 
-    static ArrayList<Artist> searchArtist(String str){
+    public static ArrayList<Artist> searchArtist(String str){
         str=str.toLowerCase().trim();
         String[] strArr=str.split("\\s+|,\\s*|\\.\\s*");
+        //разбиение строки на массив строка для поиска по словам
         String name = "";
         String genr = "";
         newlist.clear();
@@ -28,15 +29,19 @@ public static Activity curActivity;
             name = artist.name.toLowerCase();
             genr = artist.getGenresAsString().toLowerCase();
             boolean condPart=false;
-            for(String strPart:strArr){
-                condPart|=name.matches(".*"+strPart+".*");
-                condPart|=genr.matches(".*"+strPart+".*");
-            }
+                for(String strPart:strArr){
+                    condPart|=name.matches(".*"+strPart+".*");
+                    condPart|=genr.matches(".*"+strPart+".*");
+                }
             if (condPart) {
                 newlist.add(artist);
             }
         }
-        showShortToast("Найдено: "+newlist.size()+" записей из "+listStore.size());
+        String searchMsg=curActivity.getResources().getString(R.string.search_found);
+        String strFinal = String.format(searchMsg, newlist.size(),listStore.size());
+        showShortToast(strFinal);
+//
+//  showShortToast("Найдено: "+newlist.size()+" записей из "+listStore.size());
         return newlist;
     }
 

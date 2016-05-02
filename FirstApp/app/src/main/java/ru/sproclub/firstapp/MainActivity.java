@@ -32,13 +32,15 @@ import java.util.Arrays;
 import ru.sproclub.firstapp.artist.Artist;
 import ru.sproclub.firstapp.artist.CustomListAdapter;
 import ru.sproclub.firstapp.artist.LoadBigDataTmpFile;
+import ru.sproclub.firstapp.artist.MyKeyListener;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    private ListView listView;
-    private EditText editText;
-    CustomListAdapter adapter;
+    public ListView listView;
+    public EditText editText;
+    public CustomListAdapter adapter;
+
     boolean isNetworkOnlineNow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,33 +49,8 @@ public class MainActivity extends ActionBarActivity {
         ArtistDao.curActivity=this;
         editText = (EditText)findViewById(R.id.editText);
 
-        editText.setOnKeyListener(new View.OnKeyListener()
-                                  {
-                                      public boolean onKey(View v, int keyCode, KeyEvent event)
-                                      {
-                                          if(event.getAction() == KeyEvent.ACTION_DOWN &&
-                                                  (keyCode == KeyEvent.KEYCODE_ENTER))
-                                          {
-                                              // сохраняем текст, введенный до нажатия Enter в переменную
-                                              String strSearch = editText.getText().toString().trim();
-                                              //при вводе пустой строки отображается всё
-                                              if (strSearch.equals("")){
-                                                  adapter.getData().clear();
-                                                  adapter.getData().addAll(ArtistDao.listStore);
-                                              }else {
-                                                  ArtistDao.showShortToast("Идет поиск: "+strSearch);
-                                                  ArtistDao.searchArtist(strSearch);
-                                                  adapter.getData().clear();
-                                                  adapter.getData().addAll(ArtistDao.newlist);
-                                              }
-                                              adapter.notifyDataSetChanged();
-                                              listView.invalidateViews();
-                                              return true;
-                                          }
-                                          return false;
-                                      }
-                                  }
-        );
+        MyKeyListener myKeyListener=new MyKeyListener(this);
+        editText.setOnKeyListener(myKeyListener);
 
         listView=(ListView)findViewById(R.id.listView);
         isNetworkOnlineNow = isNetworkOnline(this);
