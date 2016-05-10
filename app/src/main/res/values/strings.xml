@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Исполнители</string>
+    <string name="action_settings">Настройки</string>
+    <string name="title_activity_artist">ArtistActivity</string>
+
+    <string name="album_plural1">альбом</string>
+    <string name="album_plural2">альбома</string>
+    <string name="album_plural5">альбомов</string>
+
+    <string name="track_plural1">песня</string>
+    <string name="track_plural2">песни</string>
+    <string name="track_plural5">песен</string>
+
+    <string name="artist_biography_title">Биография</string>
+    <string name="artist_search_hint">Введите имя или жанр</string>
+    <string name="search_process">Идет поиск: %1$s</string>
+    <string name="search_found">Найдено %1$d записей из %2$d</string>
+    <string name="link_button">Перейти на сайт</string>
+</resources>
