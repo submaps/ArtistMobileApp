@@ -59,9 +59,9 @@ public class MainActivity extends ActionBarActivity {
         InputStream tmp_list_stream = getResources().openRawResource(R.raw.tmp_list);
         //источник данных по умолчанию
 
-        if(isNetworkOnlineNow) {
-            tmp_list_stream = getResources().openRawResource(R.raw.artists);
-        }
+//        if(isNetworkOnlineNow) {
+//            tmp_list_stream = getResources().openRawResource(R.raw.artists);
+//        }
 
         Artist[] list = artistDataProcessor.parseJsonFileToObjects(tmp_list_stream);
         //для доступа из ArtistActivity
