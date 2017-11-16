@@ -160,3 +160,18 @@ public class MainActivity extends ActionBarActivity {
         toast.show();
     }
 }
+
+//        Tove Lo
+//        Ne-Yo
+//        Usher
+//        Jay Sean
+//        Kelly Rowland
+//        Timbaland
+//        Keri Hilson
+//        Пицца
+//        Дима Билан
+//        Бьянка
+//        Нюша
+//        Нойз
+//        Oxxxymiron
+

@@ -2,6 +2,7 @@ package ru.artistmobile;
 
 import android.app.Activity;
 import android.app.Application;
+import android.media.MediaPlayer;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public static  ArrayList<Artist> list;//текущий отображаемый 
 public static ArrayList<Artist> newlist=new ArrayList<>();
 public static boolean isNetworkOnline;
 public static Activity curActivity;
+public static MediaPlayer mp = new MediaPlayer();
 
     public static ArrayList<Artist> searchArtist(String str){
         str=str.toLowerCase().trim();
@@ -50,6 +52,4 @@ public static Activity curActivity;
                 message, Toast.LENGTH_SHORT);
         toast.show();
     }
-
-
 }
