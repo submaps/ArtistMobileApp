@@ -25,8 +25,8 @@ There is the search editView in the MainActivity. It supports searching objects 
 При первом запуске на устройстве необходимо подключение к интернету, для скачивания изображений, которые сохраняются в кэш папку на мобильном устройстве. При последующем перезапуске, имеющиеся закэшированные изображения будут подгружаться.
 На главное форме имеется возможность поиска. Введенный в editView текст отправляется в статический метод searchArtist у ArtistDao, который просматривает на частичное совпадение поля name и genres у каждого элемента в listStore. Есть возможность поиска по нескольким ключевым словам, с любым количеством разделителей ". ,". После поиска на главное форме отображается новый список. Если совпадений не найдено выводится пустой список. Если пуст поисковый запрос отображается всё содержимое listStore.
 
-![main activity](https://github.com/Amironsoft/ArtistMobileApp/blob/master/screens/2.jpg)
-![search](https://github.com/Amironsoft/ArtistMobileApp/blob/master/screens/1.jpg)
-![oxxx](https://github.com/Amironsoft/ArtistMobileApp/blob/master/screens/5.jpg)
+![main activity](https://github.com/Amironsoft/ArtistMobileApp/blob/master/screens/2.jpg width=100)
+![search](https://github.com/Amironsoft/ArtistMobileApp/blob/master/screens/1.jpg width=100)
+![oxxx](https://github.com/Amironsoft/ArtistMobileApp/blob/master/screens/5.jpg width=100)
 
 
